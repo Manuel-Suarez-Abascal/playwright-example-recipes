@@ -1,9 +1,12 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-const validCredentials = {
+// these credentials are used for login tests & are not secret
+const credentials = {
     username: "tomsmith",
-    password: "SuperSecretPassword!"
+    password: "SuperSecretPassword!",
+    invalidUsername: "johndoe",
+    invalidPassword: "NotSuperSecretPassword!"
 };
 
 // function to login
@@ -29,10 +32,19 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe("Login", () => {
-    test("should login with valid credentials", async ({ page }) => {
-        const { username, password } = validCredentials;
-
+    const { username, password, invalidUsername, invalidPassword } = credentials;
+    test("user should login with valid credentials", async ({ page }) => {
         await loginThroughUI({ page, username, password });
         await verifyLoginMessage({ page, messageElementLocator: "#flash", message: "You logged into a secure area! ×" });
+    });
+
+    test("user can't login with invalid username", async ({ page }) => {
+        await loginThroughUI({ page, username: invalidUsername, password });
+        await verifyLoginMessage({ page, messageElementLocator: "#flash", message: "Your username is invalid! ×" });
+    });
+
+    test("user can't login with invalid password", async ({ page }) => {
+        await loginThroughUI({ page, username, password: invalidPassword });
+        await verifyLoginMessage({ page, messageElementLocator: "#flash", message: "Your password is invalid! ×" });
     });
 });
