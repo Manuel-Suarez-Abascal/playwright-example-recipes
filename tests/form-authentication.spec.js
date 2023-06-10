@@ -28,7 +28,7 @@ const verifyLoginMessage = async ( { page, messageElementLocator, message }) => 
 };
 
 test.beforeEach(async ({ page }) => {
-    await page.goto("https://the-internet.herokuapp.com/login");
+    await page.goto("/login");
 });
 
 test.describe("Login", () => {

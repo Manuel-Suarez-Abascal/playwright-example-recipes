@@ -1,7 +1,7 @@
 const { test, expect } = require("@playwright/test");
 
 test.beforeEach(async ({ page }) => {
-    await page.goto("https://the-internet.herokuapp.com/add_remove_elements/");
+    await page.goto("/add_remove_elements/");
 });
 
 test("user can add & remove elements", async ({ page }) => {
