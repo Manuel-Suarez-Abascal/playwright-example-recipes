@@ -38,4 +38,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }} # Use the built-in GITHUB_TOKEN for authentication
           publish_dir: ./playwright-report # Directory to deploy
           publish_branch: gh-pages # Branch to deploy to
-          keep_history: true # Keep the commit history for deployed files
